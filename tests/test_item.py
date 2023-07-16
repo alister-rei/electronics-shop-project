@@ -38,9 +38,7 @@ def test_property_name():
 
 
 # TestCase_2 : classmethod instantiate_from_csv
-# Only from Pytest in terminal from file ...\electronics-shop-project
 def test_instantiate_from_csv():
-    # относительный путь для проверки через pytest -cov
     Item.instantiate_from_csv()
     assert len(Item.all) == 5
     assert Item.all[0].name == "Смартфон"
