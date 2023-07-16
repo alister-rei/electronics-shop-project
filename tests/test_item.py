@@ -41,8 +41,7 @@ def test_property_name():
 # Only from Pytest in terminal from file ...\electronics-shop-project
 def test_instantiate_from_csv():
     # относительный путь для проверки через pytest -cov
-    path = os.path.join("src", "items.csv")
-    Item.instantiate_from_csv(path)
+    Item.instantiate_from_csv()
     assert len(Item.all) == 5
     assert Item.all[0].name == "Смартфон"
     assert Item.all[3].name == "Мышка"

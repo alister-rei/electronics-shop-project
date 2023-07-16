@@ -55,7 +55,7 @@ class Item:
         self.price = self.pay_rate * self.price
 
     @classmethod
-    def instantiate_from_csv(cls, path=os.path.join("..", "src", "items.csv")):
+    def instantiate_from_csv(cls, path=os.path.join(os.path.dirname(__file__), "..", "src", "items.csv")):
         '''
         открывает файт csv и на основе его данных создает экземпляры класса, которые записывает в список all
         '''
