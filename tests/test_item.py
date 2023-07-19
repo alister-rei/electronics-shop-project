@@ -30,11 +30,13 @@ def test_item():
 # TestCase_1 : property , name.getter name.setter
 def test_property_name():
     item1 = Item("samsung", 10000, 5)
+    item2 = Item("playstation5", 12500, 2)
     assert item1.name == "samsung"
     item1.name = "macbook"
     assert item1.name == "macbook"
     item1.name = "samsung galaxy gt one"
     assert item1.name == "samsung ga"
+    assert item2.name == "playstatio"
 
 
 # TestCase_2 : classmethod instantiate_from_csv
@@ -51,3 +53,20 @@ def test_string_to_number():
     assert Item.string_to_number("4") == 4
     assert Item.string_to_number("4.0") == 4
     assert Item.string_to_number("4.9") == 4
+
+
+"""
+Homework-3 TestCase
+"""
+
+
+# TestCase repr
+def test_item_repr():
+    item1 = Item("Samsung 10", 10000, 5)
+    assert repr(item1) == "Item('Samsung 10', 10000, 5)"
+
+
+# TestCase str
+def test_item_str():
+    item1 = Item("Samsung 10", 10000, 5)
+    assert str(item1) == "Samsung 10"
