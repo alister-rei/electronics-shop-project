@@ -15,7 +15,8 @@ def test_item():
     assert item1.calculate_total_price() == 100000
     # Тест атрибута класса для метода
     item2 = Item("Samsung", 15000, 5)
-    Item.pay_rate = 0.5
+    item1.pay_rate = 0.5
+    assert item1.pay_rate == 0.5
     item1.apply_discount()
     assert item1.price == 5000
     assert item2.price == 15000
@@ -70,3 +71,16 @@ def test_item_repr():
 def test_item_str():
     item1 = Item("Samsung 10", 10000, 5)
     assert str(item1) == "Samsung 10"
+
+
+"""
+Homework-4 TestCase
+"""
+
+
+# TestCase add
+def test_add():
+    item1 = Item("Samsung 10", 10000, 5)
+    item2 = Item("Смартфон", 12500, 2)
+    assert item1 + item2 == 7
+    # assert item1 + 5 == ValueError('Складывать можно только объекты "Item" и дочерние от них.')
