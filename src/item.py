@@ -71,10 +71,9 @@ class Item:
         '''
         сеттер метод для перезаписи атрибута __quantity
         '''
-        if type(quantity) == int and quantity >= 0:
-            self.__quantity = quantity
-        else:
-            raise ValueError('Количество физических товаров должно быть целым числом больше нуля.')
+        if not isinstance(quantity, int) or quantity < 0:
+            raise ValueError('Количество физических товаров должно быть целым числом от нуля.')
+        self.__quantity = quantity
 
     def calculate_total_price(self) -> float:
         """
@@ -109,8 +108,8 @@ class Item:
                 file_data = csv.DictReader(file)
                 for row in file_data:
                     name = row['name']
-                    price = row['price']
-                    quantity = row['quantity']
+                    price = float(row['price'])
+                    quantity = int(row['quantity'])
                     cls(name, price, quantity)
 
     @staticmethod
