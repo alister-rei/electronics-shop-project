@@ -1,3 +1,5 @@
+import pytest
+
 from src.phone import Phone
 
 
@@ -18,8 +20,12 @@ def test_number_of_sum():
     assert phone1.number_of_sim == 2
     phone1.number_of_sim = 1
     assert phone1.number_of_sim == 1
-    # phone1.number_of_sim = 0
-    # assert phone1.number_of_sim == ValueError
+
+
+def test_number_of_sum_value_error():
+    phone1 = Phone("Samsung 10", 25000, 5, 2)
+    with pytest.raises(ValueError):
+        phone1.number_of_sim = 0
 
 
 def test_repr():
