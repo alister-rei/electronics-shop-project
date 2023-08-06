@@ -103,7 +103,25 @@ class Item:
         открывает файт csv и на основе его данных создает экземпляры класса, которые записывает в список all
         '''
         cls.all.clear()
-        if os.path.exists(path):
+        try:
+            with open(path, 'r', encoding='Windows-1251') as file:
+                file_data = csv.DictReader(file)
+                # Проверка на соответствие всех параметров
+                required_fields = ['name', 'price', 'quantity']
+                if not all(field in file_data.fieldnames for field in required_fields):
+                    raise InstantiateCSVError
+                # Проверка наличия всех данных во всех строках
+                for row in file_data:
+                    if not all(row[field] for field in file_data.fieldnames):
+                        raise InstantiateCSVError
+
+        except FileNotFoundError as ex:
+            raise FileNotFoundError("_Отсутствует файл item.csv_")
+
+        except InstantiateCSVError as ex:
+            raise InstantiateCSVError
+
+        else:
             with open(path, 'r', encoding='Windows-1251') as file:
                 file_data = csv.DictReader(file)
                 for row in file_data:
@@ -118,3 +136,15 @@ class Item:
         получает строку в которой записано число возвращает целое число округленное int
         '''
         return int(float(value))
+
+
+class InstantiateCSVError(Exception):
+    """ свой класс ошибок """
+
+    def __init__(self, *args, **kwargs) -> None:
+        """ инициализация своего класса ошибок """
+        self.messege = args[0] if args else "_Файл item.csv поврежден_"
+
+    def __str__(self) -> str:
+        """ вывод сообщенияя в сторокой """
+        return self.messege
