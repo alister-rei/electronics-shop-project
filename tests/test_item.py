@@ -1,4 +1,6 @@
-from src.item import Item
+import pytest
+
+from src.item import Item, InstantiateCSVError
 import os
 
 
@@ -84,3 +86,43 @@ def test_add():
     item2 = Item("Смартфон", 12500, 2)
     assert item1 + item2 == 7
     # assert item1 + 5 == ValueError('Складывать можно только объекты "Item" и дочерние от них.')
+
+
+"""
+Homework-6 TestCase
+"""
+
+
+# TestCase ValueError
+def test_quantity_setter_value_error():
+    item1 = Item("Samsung 10", 10000, 5)
+    item1.quantity = 0
+    assert item1.quantity == 0
+    with pytest.raises(ValueError):
+        item1.quantity = -4
+
+
+def test_add_ValueError():
+    item1 = Item("Samsung 10", 10000, 5)
+    with pytest.raises(ValueError):
+        item1 + 4
+
+
+def test_instantiate_from_csv_error_1():
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv(
+            path=os.path.join(os.path.dirname(__file__), "..", "src", "items2.csv"))
+
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv(
+            path=os.path.join(os.path.dirname(__file__), "..", "src", "items3.csv"))
+
+    with pytest.raises(FileNotFoundError):
+        Item.instantiate_from_csv(
+            path=os.path.join(os.path.dirname(__file__), "..", "src", "items4.csv"))
+
+
+# TestCase InstantiateCSVError
+def test_instantiatecsverror():
+    value_error = InstantiateCSVError()
+    assert str(value_error) == "_Файл item.csv поврежден_"
